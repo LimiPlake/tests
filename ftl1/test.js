@@ -1,9 +1,25 @@
-const TEST_ID = "LV1FT9204";
 const QUESTION_COUNT = 18;
 const WORKING_TIME_MS = 2 * 60 * 60 * 1000;
 const PAUSE_TIME_MS = 5 * 60 * 1000;
 const MAX_PAUSES = 3;
 const STORAGE_KEY = "limimake-ftl1-draft";
+
+function readSavedDraft() {
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+    } catch {
+        return null;
+    }
+}
+
+function randomFourDigitNumber() {
+    return Math.floor(1000 + Math.random() * 9000);
+}
+
+const savedDraft = readSavedDraft();
+const TEST_NUMBER = Number.isInteger(savedDraft?.testNumber) ? savedDraft.testNumber : randomFourDigitNumber();
+const TEST_ID = `LV1FT${TEST_NUMBER}`;
+const TESTER_INITIALS = "LT";
 
 // There is intentionally no answer key here. Every answer is reviewed by a human.
 const parts = [
@@ -85,6 +101,8 @@ const parts = [
 
 const state = {
     screen: "welcome",
+    testNumber: TEST_NUMBER,
+    testId: TEST_ID,
     part: 0,
     answers: Array.from({ length: QUESTION_COUNT }, () => null),
     backgroundColor: "#ffffff",
@@ -109,6 +127,9 @@ const pauseOverlay = document.getElementById("pause-overlay");
 const pauseCountText = document.getElementById("pause-count");
 const pauseTimerText = document.getElementById("pause-timer");
 const breakButton = document.getElementById("break-button");
+
+document.getElementById("test-number").textContent = TEST_NUMBER;
+document.getElementById("tester-id").textContent = `${TEST_NUMBER}-${TESTER_INITIALS}`;
 
 let workingTimer = null;
 let pauseTimer = null;
