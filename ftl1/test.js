@@ -400,7 +400,11 @@ function emailSubmission() {
     const submittedAt = new Date().toLocaleString();
     const subject = encodeURIComponent(`LimiMake Level 1 Final Test - ${testerId}`);
     const body = encodeURIComponent(buildSubmissionBody(testerId, submittedAt));
-    window.location.href = `mailto:questions@limiplake.com?subject=${subject}&body=${body}`;
+    window.open(
+        `https://mail.google.com/mail/?view=cm&fs=1&to=questions%40limiplake.com&su=${subject}&body=${body}`,
+        "_blank",
+        "noopener,noreferrer"
+    );
 }
 
 function buildSubmissionBody(testerId, submittedAt) {
