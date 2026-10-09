@@ -82,9 +82,34 @@ textarea:focus-visible {
     margin: 92px auto 0;
 }
 
-.student-name {
-    margin: 210px 0 0;
-    font-size: clamp(1.35rem, 2.35vw, 2.35rem);
+.name-fields {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 210px auto 0;
+    font-size: clamp(1.2rem, 2.1vw, 2.1rem);
+}
+
+.name-fields input {
+    width: 190px;
+    padding: 3px 4px;
+    border: 0;
+    border-bottom: 2px solid #000000;
+    border-radius: 0;
+    background: transparent;
+    color: #000000;
+}
+
+.name-fields input:focus {
+    outline: 0;
+    border-bottom-width: 3px;
+}
+
+.name-fields input:focus-visible {
+    outline: 2px solid #777777;
+    outline-offset: 3px;
 }
 
 .theme-screen {
@@ -328,7 +353,7 @@ textarea:focus-visible {
         margin-top: 62px;
     }
 
-    .student-name {
+    .name-fields {
         margin-top: 120px;
     }
 
