@@ -166,6 +166,22 @@ textarea:focus-visible {
     line-height: 30px;
 }
 
+.break-button {
+    position: fixed;
+    left: 22px;
+    bottom: 17px;
+    padding: 8px 13px;
+    border: 0;
+    border-radius: 0;
+    background: #d9d9d9;
+    color: #000000;
+    font-size: 0.9rem;
+}
+
+.break-button:hover {
+    background: #c8c8c8;
+}
+
 .questions-screen {
     min-height: 100vh;
     padding-bottom: 48px;
