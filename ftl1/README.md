@@ -4,7 +4,7 @@ This folder contains the complete Level 1 final-test front end for the `ftl1/` f
 
 It follows the wireframe requirements captured in the project handoff:
 
-- one item on screen at a time;
+- one wireframe section on screen at a time, with its questions arranged in the wireframe's rows;
 - 5 single-choice questions, 4 multi-select questions, 3 written answers, 6 true/false questions, and 1 final-project screen;
 - 50% or higher is the stated passing threshold;
 - two hours of working time;
