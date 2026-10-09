@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="LimiMake Level 1 Final Test">
+    <title>LimiMake Level 1 Final Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="#top">LimiMake Tests</a>
+        <div class="header-tools">
+            <span id="save-status" class="save-status" aria-live="polite">Not started</span>
+            <span id="timer" class="timer" aria-label="Remaining working time">02:00:00</span>
+        </div>
+    </header>
+
+    <main id="top" class="shell">
+        <section id="welcome-screen" class="screen welcome-screen" aria-labelledby="welcome-title">
+            <p class="eyebrow">LimiMake Level 1</p>
+            <h1 id="welcome-title">Final Test</h1>
+            <p class="lede">Show what you learned in ScratchJr.</p>
+
+            <div class="info-grid">
+                <div><span>Test ID</span><strong>FTL1</strong></div>
+                <div><span>Passing score</span><strong>50% or higher</strong></div>
+                <div><span>Working time</span><strong>2 hours</strong></div>
+                <div><span>Breaks</span><strong>3 × 5 minutes</strong></div>
+            </div>
+
+            <form id="student-form" class="student-form">
+                <label for="student-id">Student ID</label>
+                <input id="student-id" name="student-id" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required>
+
+                <label for="student-name">Student name</label>
+                <input id="student-name" name="student-name" autocomplete="name" required>
+
+                <fieldset class="theme-picker">
+                    <legend>Choose a theme color</legend>
+                    <div class="theme-options">
+                        <label><input type="radio" name="theme" value="sky" checked><span class="theme-swatch sky">Sky blue</span></label>
+                        <label><input type="radio" name="theme" value="mint"><span class="theme-swatch mint">Mint</span></label>
+                        <label><input type="radio" name="theme" value="violet"><span class="theme-swatch violet">Violet</span></label>
+                    </div>
+                </fieldset>
+
+                <label class="check-row"><input id="human-review" type="checkbox" required> I understand that a human will review every answer.</label>
+                <button class="primary-button" type="submit">Start Test</button>
+            </form>
+        </section>
+
+        <section id="test-screen" class="screen test-screen" hidden aria-labelledby="part-title">
+            <div class="test-heading">
+                <div>
+                    <p id="part-label" class="eyebrow"></p>
+                    <h2 id="part-title"></h2>
+                </div>
+                <p id="progress" class="progress-text"></p>
+            </div>
+
+            <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+
+            <article id="question-card" class="question-card" aria-live="polite"></article>
+
+            <div class="test-actions">
+                <button id="back-button" class="secondary-button" type="button">Back</button>
+                <div class="action-group">
+                    <button id="pause-button" class="secondary-button" type="button">Pause test</button>
+                    <button id="next-button" class="primary-button" type="button">Next</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="submitted-screen" class="screen submitted-screen" hidden aria-labelledby="submitted-title">
+            <p class="eyebrow">FTL1 submitted</p>
+            <h2 id="submitted-title">Awaiting human approval.</h2>
+            <p>Your answers have been saved for human review. LimiMake does not grade this test automatically.</p>
+            <div class="submission-summary">
+                <p><strong>Student:</strong> <span id="submitted-student"></span></p>
+                <p><strong>Test:</strong> Level 1 Final Test</p>
+                <p><strong>Project:</strong> Email <strong>FinalProject.sjr</strong> to <a href="mailto:questions@limiplake.com">questions@limiplake.com</a>.</p>
+            </div>
+            <button id="download-button" class="secondary-button" type="button">Download saved answers</button>
+        </section>
+    </main>
+
+    <div id="pause-overlay" class="pause-overlay" hidden>
+        <div class="pause-card" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+            <p class="eyebrow">Break <span id="pause-number"></span> of 3</p>
+            <h2 id="pause-title">Test paused</h2>
+            <p>Your question and answers are hidden while the break is active.</p>
+            <div id="pause-timer" class="pause-timer">05:00</div>
+            <button id="resume-button" class="primary-button" type="button">Resume test</button>
+        </div>
+    </div>
+
+    <script src="test.js"></script>
+</body>
+</html>
