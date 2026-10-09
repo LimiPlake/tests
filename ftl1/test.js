@@ -397,17 +397,19 @@ function submitTest() {
 
 function emailSubmission() {
     const testerId = `${TEST_NUMBER}-${state.testerInitials}`;
+    const submittedAt = new Date().toLocaleString();
     const subject = encodeURIComponent(`LimiMake Level 1 Final Test - ${testerId}`);
-    const body = encodeURIComponent(buildSubmissionBody(testerId));
+    const body = encodeURIComponent(buildSubmissionBody(testerId, submittedAt));
     window.location.href = `mailto:questions@limiplake.com?subject=${subject}&body=${body}`;
 }
 
-function buildSubmissionBody(testerId) {
+function buildSubmissionBody(testerId, submittedAt) {
     const lines = [
         "LimiMake Level 1 Final Test submission",
         `Test ID: ${TEST_ID}`,
         `Tester ID: ${testerId}`,
         `Name: ${state.firstName} ${state.lastName}`,
+        `Submission time: ${submittedAt}`,
         "",
         "Answers:"
     ];
