@@ -16,10 +16,13 @@ function randomFourDigitNumber() {
     return Math.floor(1000 + Math.random() * 9000);
 }
 
+function getInitials(firstName, lastName) {
+    return `${firstName[0]}${lastName[0]}`.toUpperCase();
+}
+
 const savedDraft = readSavedDraft();
 const TEST_NUMBER = Number.isInteger(savedDraft?.testNumber) ? savedDraft.testNumber : randomFourDigitNumber();
 const TEST_ID = `LV1FT${TEST_NUMBER}`;
-const TESTER_INITIALS = "LT";
 
 // There is intentionally no answer key here. Every answer is reviewed by a human.
 const parts = [
@@ -103,6 +106,9 @@ const state = {
     screen: "welcome",
     testNumber: TEST_NUMBER,
     testId: TEST_ID,
+    firstName: "",
+    lastName: "",
+    testerInitials: "",
     part: 0,
     answers: Array.from({ length: QUESTION_COUNT }, () => null),
     backgroundColor: "#ffffff",
@@ -129,12 +135,26 @@ const pauseTimerText = document.getElementById("pause-timer");
 const breakButton = document.getElementById("break-button");
 
 document.getElementById("test-number").textContent = TEST_NUMBER;
-document.getElementById("tester-id").textContent = `${TEST_NUMBER}-${TESTER_INITIALS}`;
+document.getElementById("tester-id").textContent = `${TEST_NUMBER}-__`;
 
 let workingTimer = null;
 let pauseTimer = null;
 
 document.getElementById("start-button").addEventListener("click", () => {
+    const firstName = document.getElementById("first-name").value.trim();
+    const lastName = document.getElementById("last-name").value.trim();
+
+    if (!firstName || !lastName) {
+        document.getElementById("first-name").reportValidity();
+        document.getElementById("last-name").reportValidity();
+        return;
+    }
+
+    state.firstName = firstName;
+    state.lastName = lastName;
+    state.testerInitials = getInitials(firstName, lastName);
+    document.getElementById("tester-id").textContent = `${TEST_NUMBER}-${state.testerInitials}`;
+    saveDraft();
     showScreen("theme");
 });
 
