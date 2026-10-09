@@ -133,6 +133,7 @@ const pauseOverlay = document.getElementById("pause-overlay");
 const pauseCountText = document.getElementById("pause-count");
 const pauseTimerText = document.getElementById("pause-timer");
 const breakButton = document.getElementById("break-button");
+const emailSubmissionButton = document.getElementById("email-submission-button");
 
 document.getElementById("test-number").textContent = TEST_NUMBER;
 document.getElementById("tester-id").textContent = `${TEST_NUMBER}-__`;
@@ -164,6 +165,7 @@ document.getElementById("questions-next-button").addEventListener("click", nextP
 document.getElementById("submit-button").addEventListener("click", submitTest);
 document.getElementById("resume-button").addEventListener("click", resumeTest);
 breakButton.addEventListener("click", pauseTest);
+emailSubmissionButton.addEventListener("click", emailSubmission);
 
 document.getElementById("background-color").addEventListener("input", event => {
     state.backgroundColor = event.target.value;
@@ -391,6 +393,51 @@ function submitTest() {
     state.screen = "thanks";
     saveDraft();
     showScreen("thanks");
+}
+
+function emailSubmission() {
+    const testerId = `${TEST_NUMBER}-${state.testerInitials}`;
+    const subject = encodeURIComponent(`LimiMake Level 1 Final Test - ${testerId}`);
+    const body = encodeURIComponent(buildSubmissionBody(testerId));
+    window.location.href = `mailto:questions@limiplake.com?subject=${subject}&body=${body}`;
+}
+
+function buildSubmissionBody(testerId) {
+    const lines = [
+        "LimiMake Level 1 Final Test submission",
+        `Test ID: ${TEST_ID}`,
+        `Tester ID: ${testerId}`,
+        `Name: ${state.firstName} ${state.lastName}`,
+        "",
+        "Answers:"
+    ];
+
+    let answerIndex = 0;
+    parts.forEach(part => {
+        lines.push(`\n${part.title}`);
+        part.questions.forEach(question => {
+            const answer = state.answers[answerIndex];
+            let answerText = "No answer";
+
+            if (question.type === "text") {
+                answerText = answer || "No answer";
+            } else if (question.type === "multi") {
+                answerText = Array.isArray(answer) && answer.length
+                    ? answer.map(index => question.choices[index]).join(", ")
+                    : "No answer";
+            } else if (answer !== null && answer !== undefined) {
+                answerText = question.choices[answer];
+            }
+
+            lines.push(`${answerIndex + 1}. ${question.prompt}`);
+            lines.push(`Answer: ${answerText}`);
+            answerIndex += 1;
+        });
+    });
+
+    lines.push("\nFinal project: FinalProject.sjr should be attached to this email.");
+    lines.push("Human review required. Do not automatically grade this submission.");
+    return lines.join("\n");
 }
 
 function applyTheme() {
