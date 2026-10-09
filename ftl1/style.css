@@ -325,6 +325,15 @@ textarea:focus-visible {
     font-size: clamp(1.5rem, 3vw, 3rem);
 }
 
+.thanks-screen p + p {
+    margin-top: 36px;
+    font-size: clamp(1.1rem, 2vw, 1.8rem);
+}
+
+.thanks-screen .wire-button {
+    margin-top: 30px;
+}
+
 .pause-overlay {
     position: fixed;
     inset: 0;
