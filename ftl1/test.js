@@ -108,6 +108,7 @@ const questionRows = document.getElementById("question-rows");
 const pauseOverlay = document.getElementById("pause-overlay");
 const pauseCountText = document.getElementById("pause-count");
 const pauseTimerText = document.getElementById("pause-timer");
+const breakButton = document.getElementById("break-button");
 
 let workingTimer = null;
 let pauseTimer = null;
@@ -121,6 +122,7 @@ document.getElementById("part-next-button").addEventListener("click", showQuesti
 document.getElementById("questions-next-button").addEventListener("click", nextPart);
 document.getElementById("submit-button").addEventListener("click", submitTest);
 document.getElementById("resume-button").addEventListener("click", resumeTest);
+breakButton.addEventListener("click", pauseTest);
 
 document.getElementById("background-color").addEventListener("input", event => {
     state.backgroundColor = event.target.value;
@@ -171,6 +173,8 @@ function showScreen(name) {
     Object.values(screens).forEach(screen => { screen.hidden = true; });
     screens[name].hidden = false;
     state.screen = name;
+    breakButton.hidden = name !== "part" && name !== "questions";
+    breakButton.disabled = state.pauseCount >= MAX_PAUSES || state.submitted;
 }
 
 function showQuestions() {
@@ -315,6 +319,7 @@ function pauseTest() {
     state.pauseStartedAt = Date.now();
     pauseCountText.textContent = `Break ${state.pauseCount} of ${MAX_PAUSES}`;
     pauseOverlay.hidden = false;
+    breakButton.disabled = true;
     updatePauseTimer();
     pauseTimer = setInterval(updatePauseTimer, 1000);
     saveDraft();
@@ -332,6 +337,7 @@ function resumeTest() {
     state.lastTickAt = Date.now();
     clearInterval(pauseTimer);
     pauseOverlay.hidden = true;
+    breakButton.disabled = state.pauseCount >= MAX_PAUSES || state.submitted;
     saveDraft();
 }
 
