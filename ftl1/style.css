@@ -315,8 +315,12 @@ textarea:focus-visible {
 }
 
 .thanks-screen h1 {
+    display: inline-block;
     margin: 0;
-    color: #72d84c;
+    padding: 26px 42px;
+    border: 3px solid #000000;
+    background: #ffffff;
+    color: #000000;
     font-size: clamp(2.8rem, 5.7vw, 5.5rem);
 }
 
