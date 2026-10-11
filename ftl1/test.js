@@ -134,6 +134,8 @@ const pauseCountText = document.getElementById("pause-count");
 const pauseTimerText = document.getElementById("pause-timer");
 const breakButton = document.getElementById("break-button");
 const emailSubmissionButton = document.getElementById("email-submission-button");
+const projectFileInput = document.getElementById("project-file");
+const projectFileName = document.getElementById("project-file-name");
 
 document.getElementById("test-number").textContent = TEST_NUMBER;
 document.getElementById("tester-id").textContent = `${TEST_NUMBER}-__`;
@@ -166,6 +168,10 @@ document.getElementById("submit-button").addEventListener("click", submitTest);
 document.getElementById("resume-button").addEventListener("click", resumeTest);
 breakButton.addEventListener("click", pauseTest);
 emailSubmissionButton.addEventListener("click", emailSubmission);
+projectFileInput.addEventListener("change", () => {
+    const file = projectFileInput.files[0];
+    projectFileName.textContent = file ? file.name : "No file selected.";
+});
 
 document.getElementById("background-color").addEventListener("input", event => {
     state.backgroundColor = event.target.value;
@@ -385,6 +391,16 @@ function resumeTest() {
 }
 
 function submitTest() {
+    const projectFile = projectFileInput.files[0];
+
+    if (!projectFile || projectFile.name.toLowerCase() !== "finalproject.sjr") {
+        showScreen("project");
+        projectFileInput.setCustomValidity("Please attach FinalProject.sjr before submitting.");
+        projectFileInput.reportValidity();
+        return;
+    }
+
+    projectFileInput.setCustomValidity("");
     saveCurrentAnswers();
     state.submitted = true;
     state.pauseStartedAt = null;
@@ -441,7 +457,8 @@ function buildSubmissionBody(testerId, submittedAt) {
         });
     });
 
-    lines.push("\nFinal project: FinalProject.sjr should be attached to this email.");
+    const projectFile = projectFileInput.files[0];
+    lines.push(`\nFinal project file selected: ${projectFile ? projectFile.name : "No file selected"}`);
     lines.push("Human review required. Do not automatically grade this submission.");
     return lines.join("\n");
 }
