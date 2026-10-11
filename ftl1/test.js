@@ -3,6 +3,7 @@ const WORKING_TIME_MS = 2 * 60 * 60 * 1000;
 const PAUSE_TIME_MS = 5 * 60 * 1000;
 const MAX_PAUSES = 3;
 const STORAGE_KEY = "limimake-ftl1-draft";
+const SUBMIT_ENDPOINT = "https://tst-send.onrender.com/submit-test";
 
 function readSavedDraft() {
     try {
@@ -411,16 +412,46 @@ function submitTest() {
     showScreen("thanks");
 }
 
-function emailSubmission() {
+async function emailSubmission() {
     const testerId = `${TEST_NUMBER}-${state.testerInitials}`;
-    const submittedAt = new Date().toLocaleString();
-    const subject = encodeURIComponent(`LimiMake Level 1 Final Test - ${testerId}`);
-    const body = encodeURIComponent(buildSubmissionBody(testerId, submittedAt));
-    window.open(
-        `https://mail.google.com/mail/?view=cm&fs=1&to=questions%40limiplake.com&su=${subject}&body=${body}`,
-        "_blank",
-        "noopener,noreferrer"
-    );
+    const projectFile = projectFileInput.files[0];
+
+    if (!projectFile || projectFile.name.toLowerCase() !== "finalproject.sjr") {
+        projectFileInput.setCustomValidity("Please attach FinalProject.sjr before sending.");
+        projectFileInput.reportValidity();
+        return;
+    }
+
+    projectFileInput.setCustomValidity("");
+    emailSubmissionButton.disabled = true;
+    emailSubmissionButton.textContent = "Sending...";
+
+    const submittedAt = new Date().toISOString();
+    const subject = `LimiMake Level 1 Final Test - ${testerId}`;
+    const formData = new FormData();
+
+    formData.append("projectFile", projectFile, "FinalProject.sjr");
+    formData.append("subject", subject);
+    formData.append("answers", buildSubmissionBody(testerId, submittedAt));
+
+    try {
+        const response = await fetch(SUBMIT_ENDPOINT, {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`Submission failed with status ${response.status}`);
+        }
+
+        emailSubmissionButton.textContent = "Submission sent";
+    } catch (error) {
+        console.error(error);
+        emailSubmissionButton.disabled = false;
+        emailSubmissionButton.textContent = "Email submission";
+        projectFileInput.setCustomValidity("The submission could not be sent. Please try again.");
+        projectFileInput.reportValidity();
+    }
 }
 
 function buildSubmissionBody(testerId, submittedAt) {
