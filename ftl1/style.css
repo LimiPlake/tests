@@ -64,7 +64,7 @@ textarea:focus-visible {
 
 .wire-button {
     border: 0;
-    border-radius: 0;
+    border-radius: 12px;
     background: var(--button-color, #d9d9d9);
     color: #000000;
     padding: 25px 28px;
@@ -185,7 +185,7 @@ textarea:focus-visible {
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: #d9d9d9;
+    background: var(--button-color, #d9d9d9);
     color: #000000;
     font-size: 1.2rem;
     line-height: 30px;
@@ -197,8 +197,8 @@ textarea:focus-visible {
     bottom: 17px;
     padding: 8px 13px;
     border: 0;
-    border-radius: 0;
-    background: #d9d9d9;
+    border-radius: 12px;
+    background: var(--button-color, #d9d9d9);
     color: #000000;
     font-size: 0.9rem;
 }
@@ -266,7 +266,7 @@ textarea:focus-visible {
     width: 20px;
     height: 20px;
     margin: 0;
-    accent-color: #000000;
+    accent-color: var(--button-color, #d9d9d9);
 }
 
 .text-answer {
@@ -274,7 +274,7 @@ textarea:focus-visible {
     height: 50px;
     padding: 4px 8px;
     border: 3px solid #000000;
-    border-radius: 0;
+    border-radius: 12px;
     background: #ffffff;
 }
 
