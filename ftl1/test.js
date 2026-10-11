@@ -440,8 +440,12 @@ async function emailSubmission() {
             body: formData
         });
 
-        if (!response.ok) {
-            throw new Error(`Submission failed with status ${response.status}`);
+        const result = await response.json().catch(() => null);
+
+        if (!response.ok || !result?.success) {
+            throw new Error(
+                result?.error || `Submission failed with status ${response.status}`
+            );
         }
 
         emailSubmissionButton.textContent = "Submission sent";
