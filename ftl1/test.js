@@ -188,7 +188,7 @@ document.getElementById("button-color").addEventListener("input", event => {
 
 // The wireframe has no extra pause control. P pauses and Escape resumes.
 document.addEventListener("keydown", event => {
-    if (event.key.toLowerCase() === "p") pauseTest();
+    if (typeof event.key === "string" && event.key.toLowerCase() === "p") pauseTest();
     if (event.key === "Escape") resumeTest();
 });
 
