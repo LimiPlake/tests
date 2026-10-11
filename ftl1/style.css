@@ -309,6 +309,28 @@ textarea:focus-visible {
     margin: 14px 0;
 }
 
+.project-file {
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+    margin: 34px auto;
+    font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+}
+
+.project-file input[type="file"] {
+    max-width: 100%;
+    padding: 12px;
+    border: 3px solid #000000;
+    border-radius: 12px;
+    background: var(--button-color, #d9d9d9);
+    color: #000000;
+}
+
+.project-file p {
+    margin: 0;
+    font-size: clamp(1rem, 1.6vw, 1.4rem);
+}
+
 .thanks-screen {
     padding-top: 190px;
     text-align: center;
