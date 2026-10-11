@@ -71,10 +71,6 @@ textarea:focus-visible {
     font-size: 1rem;
 }
 
-.wire-button:hover {
-    background: #c8c8c8;
-}
-
 #start-button {
     display: block;
     width: min(59vw, 850px);
@@ -184,7 +180,7 @@ textarea:focus-visible {
     height: 30px;
     padding: 0;
     border: 0;
-    border-radius: 50%;
+    border-radius: 12px;
     background: var(--button-color, #d9d9d9);
     color: #000000;
     font-size: 1.2rem;
@@ -203,7 +199,9 @@ textarea:focus-visible {
     font-size: 0.9rem;
 }
 
-.break-button:hover {
+.break-button:hover,
+.arrow-button:hover,
+.wire-button:hover {
     background: #c8c8c8;
 }
 
@@ -266,7 +264,16 @@ textarea:focus-visible {
     width: 20px;
     height: 20px;
     margin: 0;
+    border: 2px solid var(--button-color, #d9d9d9);
     accent-color: var(--button-color, #d9d9d9);
+}
+
+.choice-label input[type="radio"] {
+    border-radius: 50%;
+}
+
+.choice-label input[type="checkbox"] {
+    border-radius: 5px;
 }
 
 .text-answer {
