@@ -8,7 +8,27 @@
 </head>
 <body>
     <main id="app">
-        <section id="welcome-screen" class="screen welcome-screen">
+        <section id="landing-screen" class="screen landing-screen">
+            <h1>Level 1 Final Test</h1>
+            <p>Enter your information to begin.</p>
+
+            <form id="landing-form" class="landing-form">
+                <label for="first-name">First name:</label>
+                <input id="first-name" type="text" autocomplete="given-name" required>
+
+                <label for="last-name">Last name:</label>
+                <input id="last-name" type="text" autocomplete="family-name" required>
+
+                <label for="email">Email:</label>
+                <input id="email" type="email" autocomplete="email" required>
+
+                <button id="landing-continue-button" class="wire-button" type="submit">
+                    Continue
+                </button>
+            </form>
+        </section>
+
+        <section id="welcome-screen" class="screen welcome-screen" hidden>
             <h1>Are you ready for this test?</h1>
 
             <div class="welcome-details">
@@ -21,12 +41,6 @@
                 START TEST
             </button>
 
-            <div class="name-fields">
-                <label for="first-name">First name:</label>
-                <input id="first-name" type="text" autocomplete="given-name" required>
-                <label for="last-name">Last name:</label>
-                <input id="last-name" type="text" autocomplete="family-name" required>
-            </div>
         </section>
 
         <section id="theme-screen" class="screen theme-screen" hidden>
