@@ -217,6 +217,7 @@ function beginTest() {
 
 function showScreen(name) {
     const screens = {
+        landing: landingScreen,
         welcome: welcomeScreen,
         theme: themeScreen,
         part: partScreen,
