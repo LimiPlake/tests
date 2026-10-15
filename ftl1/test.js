@@ -104,11 +104,12 @@ const parts = [
 ];
 
 const state = {
-    screen: "welcome",
+    screen: "landing",
     testNumber: TEST_NUMBER,
     testId: TEST_ID,
     firstName: "",
     lastName: "",
+    email: "",
     testerInitials: "",
     part: 0,
     answers: Array.from({ length: QUESTION_COUNT }, () => null),
@@ -122,6 +123,8 @@ const state = {
     submitted: false
 };
 
+const landingScreen = document.getElementById("landing-screen");
+const landingForm = document.getElementById("landing-form");
 const welcomeScreen = document.getElementById("welcome-screen");
 const themeScreen = document.getElementById("theme-screen");
 const partScreen = document.getElementById("part-screen");
@@ -144,21 +147,23 @@ document.getElementById("tester-id").textContent = `${TEST_NUMBER}-__`;
 let workingTimer = null;
 let pauseTimer = null;
 
-document.getElementById("start-button").addEventListener("click", () => {
-    const firstName = document.getElementById("first-name").value.trim();
-    const lastName = document.getElementById("last-name").value.trim();
+landingForm.addEventListener("submit", event => {
+    event.preventDefault();
 
-    if (!firstName || !lastName) {
-        document.getElementById("first-name").reportValidity();
-        document.getElementById("last-name").reportValidity();
-        return;
-    }
+    if (!landingForm.reportValidity()) return;
 
-    state.firstName = firstName;
-    state.lastName = lastName;
-    state.testerInitials = getInitials(firstName, lastName);
+    state.firstName = document.getElementById("first-name").value.trim();
+    state.lastName = document.getElementById("last-name").value.trim();
+    state.email = document.getElementById("email").value.trim();
+    state.testerInitials = getInitials(state.firstName, state.lastName);
+
     document.getElementById("tester-id").textContent = `${TEST_NUMBER}-${state.testerInitials}`;
+
     saveDraft();
+    showScreen("welcome");
+});
+
+document.getElementById("start-button").addEventListener("click", () => {
     showScreen("theme");
 });
 
@@ -464,6 +469,7 @@ function buildSubmissionBody(testerId, submittedAt) {
         `Test ID: ${TEST_ID}`,
         `Tester ID: ${testerId}`,
         `Name: ${state.firstName} ${state.lastName}`,
+        `Email: ${state.email}`,
         `Submission time: ${submittedAt}`,
         "",
         "Answers:"
