@@ -465,3 +465,34 @@ textarea:focus-visible {
         padding: 18px 24px;
     }
 }
+
+@media (max-height: 760px) {
+    .landing-screen {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .landing-screen h1 {
+        margin-bottom: 10px;
+    }
+
+    .landing-screen > p {
+        margin-bottom: 18px;
+    }
+
+    .landing-form {
+        gap: 8px 16px;
+        font-size: 1.2rem;
+    }
+
+    .landing-form input {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .landing-form .wire-button {
+        margin-top: 8px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+}
