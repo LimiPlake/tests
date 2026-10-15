@@ -229,6 +229,8 @@ function showScreen(name) {
     screens[name].hidden = false;
     state.screen = name;
     window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     breakButton.hidden = name !== "part" && name !== "questions";
     breakButton.disabled = state.pauseCount >= MAX_PAUSES || state.submitted;
 }
