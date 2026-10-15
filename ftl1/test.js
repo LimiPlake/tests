@@ -228,6 +228,7 @@ function showScreen(name) {
     Object.values(screens).forEach(screen => { screen.hidden = true; });
     screens[name].hidden = false;
     state.screen = name;
+    window.scrollTo(0, 0);
     breakButton.hidden = name !== "part" && name !== "questions";
     breakButton.disabled = state.pauseCount >= MAX_PAUSES || state.submitted;
 }
