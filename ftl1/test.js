@@ -530,6 +530,11 @@ function restoreDraft() {
         Object.assign(state, restored);
         applyTheme();
 
+        if (!state.email) {
+            showScreen("landing");
+            return;
+        }
+
         if (state.submitted) {
             showScreen("thanks");
             return;
